@@ -1,15 +1,19 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
 import { router } from "./routes";
 
 const app = express();
-const prisma = new PrismaClient();
-const port = process.env.PORT || 3001;
+const port = parseInt(process.env.PORT || "8080");
 
 app.use(express.json());
 
 app.use(router);
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+if (process.env.NODE_ENV !== "develop") {
+  app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
+  });
+} else {
+  app.listen(port, "127.0.0.1", () => {
+    console.log(`App listening on port ${port}`);
+  });
+}
