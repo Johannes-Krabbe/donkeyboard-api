@@ -19,7 +19,7 @@ authController.get(
   })
 );
 
-authController.post("/signup", async (req, res) => {
+authController.post("/register", async (req, res) => {
   const { username, email, password, bio } = req.body as {
     username: string;
     email: string;
@@ -64,7 +64,7 @@ authController.post("/signup", async (req, res) => {
       username,
       email,
       password: hashedPass,
-      bio: bio ? bio : "Hello there, I am using Dunkeytype!",
+      bio: bio ? bio : "Hello there, I am using Donkeytype!",
     },
   });
 
@@ -83,14 +83,20 @@ authController.post("/login", async (req, res) => {
   const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user) {
-    res.status(401).send();
+    res.status(401).json({
+      error: true,
+      message: "User with email does not exist",
+    });
     return;
   }
 
   const validPassword: boolean = await argon2.verify(user.password, password);
 
   if (!validPassword) {
-    res.status(401).send();
+    res.status(401).json({
+      error: true,
+      message: "Password is not valid",
+    });
     return;
   }
 
