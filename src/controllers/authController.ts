@@ -85,7 +85,7 @@ authController.post("/login", async (req, res) => {
   if (!user) {
     res.status(401).json({
       error: true,
-      message: "User with email does not exist",
+      message: "Invalid Email or Password",
     });
     return;
   }
@@ -95,7 +95,7 @@ authController.post("/login", async (req, res) => {
   if (!validPassword) {
     res.status(401).json({
       error: true,
-      message: "Password is not valid",
+      message: "Invalid Email or Password",
     });
     return;
   }
