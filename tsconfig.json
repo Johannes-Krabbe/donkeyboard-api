@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2021",
-    "module": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "paths": {
       "@*": ["./src/*"]
     },
@@ -16,7 +17,6 @@
     // "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "allowUnreachableCode": true,
-    "moduleResolution": "node",
 
     "skipLibCheck": true
   }
