@@ -16,10 +16,3 @@ indexController.post(
     res.status(200).send("This is the Donkeyboard api");
   })
 );
-
-indexController.post(
-  "/test",
-  asyncHandler(async (req: Request, res: Response) => {
-    res.status(200).send("POST test");
-  })
-);
