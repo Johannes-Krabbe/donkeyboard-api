@@ -17,6 +17,9 @@ indexController.post(
   asyncHandler(async (req: Request, res: Response) => {
     res
       .status(200)
-      .send("This is the donkeyboard api! POST request was successful");
+      .send({
+        method: "POST",
+        message: "This is the donkeyboard api! POST request was successful",
+      });
   })
 );
