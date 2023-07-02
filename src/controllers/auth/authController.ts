@@ -1,14 +1,14 @@
 import { Request, Response, Router } from "express";
 import asyncHandler from "express-async-handler";
-import { PrismaClient } from "@prisma/client";
 import argon2 from "argon2";
 import { createJWT } from "@utils/auth";
 import { TypedRequestBody, validateRequest } from "zod-express-middleware";
 import { loginBodySchema, registerBodySchema } from "./authValidation";
+import { getClient } from "@context";
 
 export const authController = Router();
 
-const prisma = new PrismaClient();
+const prisma = getClient();
 
 /**
  * Returns 200.

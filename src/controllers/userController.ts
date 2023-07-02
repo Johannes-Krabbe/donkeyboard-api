@@ -1,10 +1,10 @@
 import { Request, Response, Router } from "express";
 import asyncHandler from "express-async-handler";
-import { PrismaClient } from "@prisma/client";
+import { getClient } from "@context";
 
 export const userController = Router();
 
-const prisma = new PrismaClient();
+const prisma = getClient();
 
 /**
  * Returns 200.

@@ -94,6 +94,8 @@ export default {
     "@controllers/(.*)": "<rootDir>/src/controllers/$1",
     "@utils/(.*)": "<rootDir>/src/utils/$1",
     "@app": "<rootDir>/src/app",
+    "@client": "<rootDir>/src/client",
+    "@context": "<rootDir>/src/context",
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
