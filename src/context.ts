@@ -1,13 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { DeepMockProxy } from "jest-mock-extended";
 
 import prisma from "./client";
 
-const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
-
-export const getClient = (): PrismaClient => {
-  if (process.env.DB_ENV === "test") {
-    return prismaMock;
-  }
-  return prisma;
-};
+// Tests replace ./client with a jest-mock-extended deep mock (see __test__/), so this returns the
+// mock there and the real client everywhere else. Typed without jest-mock-extended so production
+// builds don't need dev dependencies.
+export const getClient = (): PrismaClient => prisma;
