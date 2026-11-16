@@ -1,0 +1,29 @@
+name: Deploy to piplup
+
+# On every push to main, piplup pulls this repo and rebuilds this service.
+# The deploy key (secret PIPLUP_DEPLOY_KEY) can only trigger that one deploy: it is forced to
+# `deploy-app <app> <service>` in the deploy user's authorized_keys on piplup.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-piplup
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Deploy
+        env:
+          SSH_KEY: ${{ secrets.PIPLUP_DEPLOY_KEY }}
+          KNOWN_HOSTS: ${{ vars.PIPLUP_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/piplup
+          chmod 600 ~/.ssh/piplup
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/piplup -o IdentitiesOnly=yes deploy@piplup.jk0.cc "$GITHUB_SHA"
